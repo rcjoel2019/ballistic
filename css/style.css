@@ -1,0 +1,17 @@
+.geral{
+    perspective: 3000px;
+    margin-left: 600px;
+    width: 2457px;
+}
+.map {
+    background-image: url(../img/map.jpg);
+    width: 2457px;
+    height: 2457px;
+    transform-style: preserve-3d;
+    transform: rotate3d(100,0,0,45deg);
+    transition: 3s;
+}
+
+.map :hover{
+    transform: rotateX(0deg);
+}
