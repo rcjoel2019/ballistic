@@ -6,12 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Ballistic</title>
+    <script src="js/script.js"></script>
 </head>
-<body>
-    <div class="geral">
+<body onload="start()">
+    <video autoplay muted loop id="background">
+        <source src="img/backgroud.mp4" type="video/mp4">
+    </video>
+    <div class="main">
         <div class="map">
 
         </div>
+    </div>
+    <div class="sidemenu">
+        <div class="bombicon"></div>
+        <div class="form">
+            <div class="labels">
+                <div>
+                    <label for="weight">Weight (g):</label><br>
+                </div>
+                <div>
+                    <label for="propellant">Propellant:</label><br>
+                </div>
+                <div>
+                    <label for="horAngle">Hor Angle:</label><br>
+                </div>
+                <div>
+                    <label for="verAngle">Ver Angle:</label>
+                </div>
+            </div>
+            <div class="inputs">
+                <div>
+                    <input type="text" name="weight" id="weight">
+                </div>
+                <div>
+                    <input type="text" name="propellant" id="propellant">
+                </div>
+                <div>
+                    <input type="text" name="horAngle" id="horAngle">
+                </div>
+                <div>
+                    <input type="text" name="verAngle" id="verAngle">
+                </div>
+            </div>
+        </div>
+        <button>FIRE!!!</button>
     </div>
 </body>
 </html>

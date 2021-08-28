@@ -1,17 +1,68 @@
-.geral{
-    perspective: 3000px;
-    margin-left: 600px;
-    width: 2457px;
+#background{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+.main{
+    perspective: 700px;
+    margin-left: 150px;
+    margin-top: -80px;
 }
 .map {
-    background-image: url(../img/map.jpg);
-    width: 2457px;
-    height: 2457px;
+    background-image: url(../img/map.jpg); 
+    background-size: cover;
     transform-style: preserve-3d;
+    transform: rotate3d(100,0,0,50deg);
+    transition: 1s;
+    
+
+}
+.map:hover{
     transform: rotate3d(100,0,0,45deg);
-    transition: 3s;
+    box-shadow: 0px 0px 15px 7px #27F0FF;
+}
+.sidemenu{
+    color: #ffffff;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background-color: rgba(2, 7, 31, 0.812);
+    width: 30%;
+    height: 40%;
+    border-radius: 6px 0px 0px 6px;
+    padding: 6px;
+    transition: 1s;
+}
+.sidemenu:hover{
+    box-shadow: 0px 0px 15px 7px #27F0FF;
+}
+.bombicon{
+    width: 30px;
+    height: 30px;
+    background-image: url("../img/mortar.gif");
+    background-size: cover;
+    transition: 1s;
+    right: 0;
+    top: 0;
+}
+.form{
+    width: 100%;
+    display: flex;
+}
+.labels{
+    width: 48%;
+    flex: 1;
+}
+.inputs{
+    width: 48%;
+    flex: 2;
 }
 
-.map :hover{
-    transform: rotateX(0deg);
+.labels div{
+    margin-bottom: 8px;
+}
+.inputs div{
+    margin-bottom: 6px;
 }
