@@ -19,7 +19,7 @@
     transform-style: preserve-3d;
     transform: rotate3d(100,0,0,50deg);
     transition: 1s;
-    
+    perspective: 700px;    
 
 }
 .map:hover{
