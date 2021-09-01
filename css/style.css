@@ -82,5 +82,5 @@
     box-shadow: 0px 0px 8px 4px #27F0FF;
 }
 .bomb{
-    transform: rotate3d(-1, 0, 0, 45deg) translateZ(45px);
+    transform: rotate3d(-1, 0, 0, 90deg) translateY(-45px) translateZ(45px);
 }

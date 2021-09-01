@@ -2,13 +2,13 @@
 
 const mapsizefactor = 0.25
 
-const gravity = 5
+const gravity = 9.8
 
 const tick = 100
 
-const newTick = 20
+const newTick = 30
 
-const timeScale = 1
+const timeScale = 0.5
 
 const factor = (newTick/tick)*timeScale
 
@@ -95,7 +95,7 @@ function render_bomb(x, y, h, size) {
     bomb.style.left = x+"px"
     bomb.style.top = (y)+"px"
     bomb.style.transform = `translateZ(${h}px)`
-    document.getElementsByClassName("map")[0].appendChild(bomb)
+    //document.getElementsByClassName("map")[0].appendChild(bomb)
 }
 function render_point(x,y,h, color){
     let point = document.createElement('div')
