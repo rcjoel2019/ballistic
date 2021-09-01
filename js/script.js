@@ -2,13 +2,19 @@
 
 const mapsizefactor = 0.25
 
-const gravity = 10
+const gravity = 5
 
 const tick = 100
 
+const newTick = 20
+
+const timeScale = 1
+
+const factor = (newTick/tick)*timeScale
+
 let wasFired = false
 
-const explosionSize = 45
+const explosionSize = 90
 
 const mortarX = 300
 const mortarY = 500
@@ -40,7 +46,7 @@ function start(){
 
     setInterval(() => {
         update()
-    }, tick);
+    }, newTick);
 }
 function css_fix(size){
     document.getElementsByClassName("main")[0].style.width = (2457*size)+"px"
@@ -59,10 +65,11 @@ function render_explosion(x, y, size){
     explosion.style.left = x+"px"
     explosion.style.top = y+"px"
     explosion.style.transformStyle = "preserve-3d"
-    explosion.style.rotate = "rotate3d(100,0,0,50deg);"
+    explosion.style.transform = "rotate3d(100,0,0,50deg);"
+    explosion.setAttribute("class", "bomb")
     document.getElementsByClassName("map")[0].appendChild(explosion)
 
-    explosion.setAttribute("class", "bomb")
+    
 }
 
 function render_mortar(x, y, size) {
@@ -86,14 +93,29 @@ function render_bomb(x, y, h, size) {
     bomb.style.backgroundSize = "cover"
     bomb.style.position = "absolute"
     bomb.style.left = x+"px"
-    bomb.style.top = y+"px"
+    bomb.style.top = (y)+"px"
+    bomb.style.transform = `translateZ(${h}px)`
     document.getElementsByClassName("map")[0].appendChild(bomb)
 }
+function render_point(x,y,h, color){
+    let point = document.createElement('div')
+    point.style.width = 2+"px"
+    point.style.height = 2+"px"
+    point.style.backgroundColor = color
+    point.style.backgroundSize = "cover"
+    point.style.position = "absolute"
+    point.style.left = x+"px"
+    point.style.top = (y)+"px"
+    point.style.transform = `translateZ(${h}px)`
+    point.setAttribute("class", "point")
+    document.getElementsByClassName("map")[0].appendChild(point)
+}
 
-function shot() {
-
+function shot() {  
     if(wasFired) return;
-    
+    clear_elements('point')
+    var audio = new Audio('content/shot.mp3')
+    audio.play()
     bomb.style.display='flex';
 
     weight = document.getElementById('weight').value
@@ -104,12 +126,12 @@ function shot() {
     render_bomb(mortarX, mortarY - 40, 1, 25);
     wasFired = true;
 
-    bullet.position.x = mortarX;
-    bullet.position.y = mortarY - 40;
-
+    bullet.position.x = mortarX + (45/2);
+    bullet.position.y = mortarY;
+    render_point(bullet.position.x, bullet.position.y, 1, "#f00")
     bullet.velocityDirection.h = verAngle * (propellant * 0.01);
-    bullet.velocityDirection.y = -(Math.abs(verAngle - 90)) * (propellant * 0.01);
-    bullet.velocityDirection.x = horAngle * (propellant * 0.01);
+    bullet.velocityDirection.y = -(Math.abs(verAngle - 90) - Math.abs(horAngle)*0.4) * (propellant * 0.01);
+    bullet.velocityDirection.x = (horAngle*0.4) * (propellant * 0.01);
 
 }
 
@@ -117,7 +139,7 @@ function update() {
     if(wasFired == false) return
 
     if(bullet.position.h <= 0) {
-        render_explosion(bullet.position.x, bullet.position.y, explosionSize)
+        render_explosion(bullet.position.x-(explosionSize/2), bullet.position.y-(explosionSize), explosionSize)
         bomb.style.display = 'none'
         wasFired = false
 
@@ -129,25 +151,26 @@ function update() {
         bullet.velocityDirection.h = 0;
 
         setTimeout(() => {
-            clear_explosions()
-        }, 3000);
+            clear_elements('bomb')
+        }, 1100);
         return
     }
 
-    bullet.position.x += bullet.velocityDirection.x
-    bullet.position.y += bullet.velocityDirection.y
-    bullet.position.h += bullet.velocityDirection.h
+    bullet.position.x += (bullet.velocityDirection.x)*factor
+    bullet.position.y += (bullet.velocityDirection.y)*factor
+    bullet.position.h += (bullet.velocityDirection.h)*factor
 
-    bullet.velocityDirection.h -= gravity + (weight * 0.10)
+    bullet.velocityDirection.h -= (gravity + (weight * 0.10))*factor
 
     bomb.style.left = bullet.position.x + 'px'
-    bomb.style.top = bullet.position.y + 'px'
+    bomb.style.top = (bullet.position.y-bullet.position.h) + 'px'
     bomb.style.width = (25 + bullet.position.h * 0.10)+'px'
     bomb.style.height = (25 + bullet.position.h * 0.10)+'px'
+    render_point(bullet.position.x, bullet.position.y, bullet.position.h, "#f00")
 }
 
-function clear_explosions() {
-    let div = document.getElementsByClassName('bomb')
+function clear_elements(className) {
+    let div = document.getElementsByClassName(className)
 
     for(let bombb of div) {
         bombb.style.display = 'none';
