@@ -149,10 +149,12 @@ function update() {
         bullet.velocityDirection.x = 0;
         bullet.velocityDirection.y = 0;
         bullet.velocityDirection.h = 0;
-
+        var audio = new Audio('content/bomb.mp3')
+        audio.volume = 0.1
+        audio.play()
         setTimeout(() => {
             clear_elements('bomb')
-        }, 1100);
+        }, 1050);
         return
     }
 
