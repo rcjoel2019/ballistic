@@ -77,7 +77,7 @@ function render_mortar(x, y, size) {
 
     mortar.style.width = size+"px"
     mortar.style.height = size+"px"
-    mortar.style.backgroundImage = "url(img/mortar-shotter.jpg)"
+    mortar.style.backgroundImage = "url(img/mortar.png)"
     mortar.style.backgroundSize = "cover"
     mortar.style.position = "absolute"
     mortar.style.left = x+"px"
@@ -85,18 +85,18 @@ function render_mortar(x, y, size) {
     document.getElementsByClassName("map")[0].appendChild(mortar)
 }
 
-function render_bomb(x, y, h, size) {
+// function render_bomb(x, y, h, size) {
     
-    bomb.style.width = (size + h)+"px"
-    bomb.style.height = (size + h)+"px"
-    bomb.style.backgroundImage = "url(img/mortar.gif)"
-    bomb.style.backgroundSize = "cover"
-    bomb.style.position = "absolute"
-    bomb.style.left = x+"px"
-    bomb.style.top = (y)+"px"
-    bomb.style.transform = `translateZ(${h}px)`
-    //document.getElementsByClassName("map")[0].appendChild(bomb)
-}
+//     bomb.style.width = (size )+"px"
+//     bomb.style.height = (size)+"px"
+//     bomb.style.backgroundImage = "url(img/mortar.gif)"
+//     bomb.style.backgroundSize = "cover"
+//     bomb.style.position = "absolute"
+//     bomb.style.left = x+"px"
+//     bomb.style.top = (y)+"px"
+//     bomb.style.transform = `translateZ(${h}px)`
+//     document.getElementsByClassName("map")[0].appendChild(bomb)
+// }
 function render_point(x,y,h, color){
     let point = document.createElement('div')
     point.style.width = 2+"px"
@@ -108,6 +108,18 @@ function render_point(x,y,h, color){
     point.style.top = (y)+"px"
     point.style.transform = `translateZ(${h}px)`
     point.setAttribute("class", "point")
+    setTimeout(() => {
+        point.style.backgroundColor = `#ff7700`
+        setTimeout(() => {
+            point.style.backgroundColor = `#ffdd00`
+            setTimeout(() => {
+                point.style.backgroundColor = `#403b1a`
+                setTimeout(() => {
+                    point.style.backgroundColor = `#db00af`
+                }, 3000);
+            }, 200);
+        }, 150);
+    }, 75);
     document.getElementsByClassName("map")[0].appendChild(point)
 }
 
@@ -123,7 +135,7 @@ function shot() {
     horAngle = document.getElementById('horAngle').value
     verAngle = document.getElementById('verAngle').value
 
-    render_bomb(mortarX, mortarY - 40, 1, 25);
+    //render_bomb(mortarX, mortarY - 40, 1, 10);
     wasFired = true;
 
     bullet.position.x = mortarX + (45/2);
