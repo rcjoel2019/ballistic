@@ -1,55 +1,74 @@
+<!-- Declaração do documento HTML -->
 <!DOCTYPE html>
+<!-- Definindo o HTML em EN -->
 <html lang="en">
+<!-- Abertura da tag head, onde fica as configurações da página -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import do arquivo de css -->
     <link rel="stylesheet" href="css/style.css">
     <title>Ballistic</title>
+    <!-- import do js -->
     <script src="js/script.js"></script>
+    <!-- import da cdn de fonts do google -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
 </head>
+<!-- Inicío do body, onde quando ser carregado, irá chamar a função onload -->
 <body onload="start()">
+    <!-- vídeo de fundo, como background -->
     <video autoplay muted loop id="background">
         <source src="img/backgroud.mp4" type="video/mp4">
     </video>
+    <!-- div main, onde fica o mapa -->
     <div class="main">
         <div class="map">
 
         </div>
     </div>
+    <!-- sidemenu, onde fica o menu para fazer o calcúlo da trajetória -->
     <div class="sidemenu">
         <div class="bombicon"></div>
         <div class="form">
             <div class="labels">
                 <div>
+                    <!-- peso -->
                     <label for="weight">Weight (g):</label><br>
                 </div>
                 <div>
+                    <!-- (propelante) -->
                     <label for="propellant">Propellant:</label><br>
                 </div>
                 <div>
+                    <!-- Angulo horizontal -->
                     <label for="horAngle">Hor Angle:</label><br>
                 </div>
                 <div>
+                    <!-- Angulo vertical -->
                     <label for="verAngle">Ver Angle:</label>
                 </div>
             </div>
             <div class="inputs">
                 <div>
+                    <!-- peso -->
                     <input type="number" name="weight" id="weight" value="10">
                 </div>
                 <div>
+                     <!-- (propelante) -->
                     <input type="number" name="propellant" id="propellant" value="60">
                 </div>
                 <div>
+                     <!-- Angulo horizontal -->
                     <input type="number" name="horAngle" id="horAngle" value="5">
                 </div>
                 <div>
+                    <!-- Angulo vertical -->
                     <input type="number" name="verAngle" id="verAngle" value="60">
                 </div>
             </div>
         </div>
+        <!-- Botão para realizar o tiro -->
         <button onclick="shot()">FIRE!!!</button>
     </div>
 </body>

@@ -2,31 +2,50 @@
 
 const mapsizefactor = 0.25
 
+
+// força da gravidade
 const gravity = 9.8
 
+// tempo de atualiazação da aplicação em milisegundos
 const tick = 100
 
+// novo tempo de atualiazação da aplicação em milisegundos
 const newTick = 30
 
+// escala de tempo durante a aplicação
 const timeScale = 0.5
 
+// fatoração dessa escala
 const factor = (newTick/tick)*timeScale
 
+// variável utilizada para verificar se está sendo atirado no momento
 let wasFired = false
 
+// tamanho da explosão quando a bomba atingir o chão
 const explosionSize = 90
 
+// posição x do morteiro
 const mortarX = 300
+
+// posição y do morteiro
 const mortarY = 500
 
+// peso
 let weight
 
+// propelante !(força)
 let propellant
+
+// angulo horizontal
 let horAngle
+
+// angulovertical
 let verAngle
 
+// criação da bomba no document
 let bomb = document.createElement('div')
 
+// objeto da bala com as propriedades de posição e velocidade da direção
 let bullet = {
     position: {
         x: 0,
@@ -40,14 +59,21 @@ let bullet = {
     }
 }
 
+// função onde renderiza o mapa inicial
 function start(){
+    // função onde refatora o mapa a partir do tampo do mapsizefactor
     css_fix(mapsizefactor)
+
+    // renderizando o morteiro
     render_mortar(mortarX, mortarY, 45)
 
+    // intervalo de atualização
     setInterval(() => {
         update()
     }, newTick);
 }
+
+// função onde refatora o mapa a partir do tampo do mapsizefactor
 function css_fix(size){
     document.getElementsByClassName("main")[0].style.width = (2457*size)+"px"
     document.getElementsByClassName("main")[0].style.height = (2457*size)+"px"
@@ -55,6 +81,7 @@ function css_fix(size){
     document.getElementsByClassName("map")[0].style.height = (2457*size)+"px"
 }
 
+// função para renderizar o ponto de explosão
 function render_explosion(x, y, size){
     let explosion = document.createElement('div')
     explosion.style.width = size+"px"
@@ -68,10 +95,9 @@ function render_explosion(x, y, size){
     explosion.style.transform = "rotate3d(100,0,0,50deg);"
     explosion.setAttribute("class", "bomb")
     document.getElementsByClassName("map")[0].appendChild(explosion)
-
-    
 }
 
+// função para renderizar o morteiro
 function render_mortar(x, y, size) {
     let mortar = document.createElement('div');
 
@@ -97,6 +123,8 @@ function render_mortar(x, y, size) {
 //     bomb.style.transform = `translateZ(${h}px)`
 //     document.getElementsByClassName("map")[0].appendChild(bomb)
 // }
+
+// função para renderizar os pontos da trajetória
 function render_point(x,y,h, color){
     let point = document.createElement('div')
     point.style.width = 2+"px"
@@ -123,9 +151,15 @@ function render_point(x,y,h, color){
     document.getElementsByClassName("map")[0].appendChild(point)
 }
 
-function shot() {  
+// ação de atirar
+function shot() { 
+    // se estiver no periodo de um tiro, só poderá atirar novamente quando explodir.
     if(wasFired) return;
+
+    // limpar elementos anteriores
     clear_elements('point')
+
+    // iniciar o audio de bomba
     var audio = new Audio('content/shot.mp3')
     audio.play()
     bomb.style.display='flex';
@@ -147,6 +181,7 @@ function shot() {
 
 }
 
+// função para atualizar a visualição, conforme a velocidade e posição da bala
 function update() {
     if(wasFired == false) return
 
@@ -183,6 +218,7 @@ function update() {
     render_point(bullet.position.x, bullet.position.y, bullet.position.h, "#f00")
 }
 
+// função para eliminar elementos anteriores para limpar o mapa
 function clear_elements(className) {
     let div = document.getElementsByClassName(className)
 
